@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Asya Seyahati — Mayıs 2026</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#060d1a;--surface:rgba(255,255,255,0.06);--surface2:rgba(255,255,255,0.04);
+  --border:rgba(255,255,255,0.1);--text:#e8edf5;--muted:#8892a4;
+  --korea:#e74c3c;--japan:#ff6b9d;--singapore:#00b9a0;
+  --warn:#f39c12;--ok:#2ecc71;--info:#3498db;--danger:#e74c3c;
+}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background:
+  radial-gradient(ellipse at 15% 15%,rgba(231,76,60,.08) 0%,transparent 50%),
+  radial-gradient(ellipse at 85% 85%,rgba(0,185,160,.08) 0%,transparent 50%);
+  pointer-events:none;z-index:0}
+
+.view{display:none}
+.view.active{display:block;animation:fi .35s ease}
+@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── LANDING ── */
+#landing{max-width:900px;margin:0 auto;padding:44px 20px;position:relative;z-index:1}
+.trip-header{text-align:center;margin-bottom:40px}
+.badge{display:inline-block;background:rgba(255,255,255,.08);border:1px solid var(--border);
+  border-radius:20px;padding:5px 14px;font-size:11px;letter-spacing:1px;text-transform:uppercase;
+  color:var(--muted);margin-bottom:14px}
+.trip-header h1{font-size:2.4rem;font-weight:800;background:linear-gradient(135deg,#fff 0%,#8892a4 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:14px}
+.travelers{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:10px}
+.traveler{display:flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--border);
+  border-radius:20px;padding:5px 12px;font-size:13px}
+.av{width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);
+  display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800}
+.trip-date{color:var(--muted);font-size:14px}
+
+/* ── FLIGHT TIMELINE ── */
+.ftl{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:22px;margin-bottom:36px;overflow-x:auto}
+.ftl h3{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:18px}
+.route{display:flex;align-items:center;min-width:580px}
+.rcity{display:flex;flex-direction:column;align-items:center;gap:3px;flex-shrink:0}
+.rflag{font-size:18px}
+.rname{font-weight:700;font-size:12px}
+.rdate{font-size:10px;color:var(--muted)}
+.rflight{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;min-width:60px}
+.rline{width:100%;height:2px;background:linear-gradient(90deg,rgba(255,255,255,.15),rgba(255,255,255,.5),rgba(255,255,255,.15));position:relative}
+.rline::after{content:'✈';position:absolute;top:-9px;left:50%;transform:translateX(-50%);font-size:13px}
+.rair{font-size:9px;color:var(--muted);text-align:center}
+
+/* ── COUNTRY CARDS ── */
+.cst{text-align:center;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:18px}
+.ccards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media(max-width:580px){.ccards{grid-template-columns:1fr}}
+.ccard{position:relative;border-radius:20px;padding:30px 22px;cursor:pointer;border:1px solid var(--border);
+  transition:transform .2s,box-shadow .2s;overflow:hidden;text-align:center}
+.ccard::before{content:'';position:absolute;inset:0;opacity:.1;transition:opacity .2s}
+.ccard:hover{transform:translateY(-5px)}
+.ccard:hover::before{opacity:.18}
+.ccard.korea{background:rgba(231,76,60,.08);border-color:rgba(231,76,60,.25)}
+.ccard.korea::before{background:var(--korea)}
+.ccard.korea:hover{border-color:var(--korea);box-shadow:0 18px 40px rgba(231,76,60,.2)}
+.ccard.japan{background:rgba(255,107,157,.08);border-color:rgba(255,107,157,.25)}
+.ccard.japan::before{background:var(--japan)}
+.ccard.japan:hover{border-color:var(--japan);box-shadow:0 18px 40px rgba(255,107,157,.2)}
+.ccard.singapore{background:rgba(0,185,160,.08);border-color:rgba(0,185,160,.25)}
+.ccard.singapore::before{background:var(--singapore)}
+.ccard.singapore:hover{border-color:var(--singapore);box-shadow:0 18px 40px rgba(0,185,160,.2)}
+.cflag{font-size:54px;margin-bottom:10px;display:block}
+.cname{font-size:21px;font-weight:700;margin-bottom:5px}
+.cdates{font-size:11px;color:var(--muted);margin-bottom:10px}
+.cchips{display:flex;gap:5px;justify-content:center;flex-wrap:wrap}
+.chip{font-size:10px;padding:3px 9px;border-radius:10px;background:rgba(255,255,255,.1)}
+.cnights{margin-top:14px;font-size:24px;font-weight:800}
+.cnights span{font-size:11px;color:var(--muted);font-weight:400}
+
+/* ── DETAIL VIEW ── */
+.dv{max-width:900px;margin:0 auto;padding:28px 20px;position:relative;z-index:1}
+.back{display:inline-flex;align-items:center;gap:7px;background:var(--surface);border:1px solid var(--border);
+  color:var(--text);padding:8px 15px;border-radius:10px;cursor:pointer;font-size:13px;margin-bottom:22px;
+  transition:background .2s;text-decoration:none;border:1px solid var(--border)}
+.back:hover{background:rgba(255,255,255,.1)}
+.dh-flag{font-size:46px;margin-bottom:6px}
+.dh-title{font-size:1.9rem;font-weight:800;margin-bottom:5px}
+.dh-sub{color:var(--muted);font-size:13px;margin-bottom:22px}
+
+/* ── CITY TABS ── */
+.ctabs{display:flex;gap:8px;margin-bottom:24px;border-bottom:1px solid var(--border);padding-bottom:0}
+.ctab{padding:9px 18px;border-radius:10px 10px 0 0;cursor:pointer;font-size:13px;font-weight:600;
+  border:1px solid transparent;border-bottom:none;background:none;color:var(--muted);transition:all .2s;
+  margin-bottom:-1px}
+.ctab.active{background:var(--surface);border-color:var(--border);border-bottom-color:var(--bg);color:var(--text)}
+.cpanel{display:none}
+.cpanel.active{display:block}
+
+/* ── CARD ── */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:22px;margin-bottom:18px}
+.ch{display:flex;align-items:center;gap:9px;margin-bottom:16px}
+.ci{font-size:19px}
+.ct{font-size:15px;font-weight:700}
+.cs{font-size:11px;color:var(--muted)}
+
+/* ── HOTEL ── */
+.hname{font-size:1.15rem;font-weight:700;margin-bottom:3px}
+.hadr{font-size:12px;color:var(--muted);margin-bottom:14px}
+.hgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px}
+@media(max-width:460px){.hgrid{grid-template-columns:1fr}}
+.hdi{background:var(--surface2);border-radius:10px;padding:11px}
+.hdl{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:3px}
+.hdv{font-size:13px;font-weight:600}
+.bref{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.07);
+  border:1px solid var(--border);border-radius:7px;padding:5px 11px;font-size:11px;
+  font-family:monospace;margin-right:7px;margin-bottom:7px}
+.bref .bl{color:var(--muted)}
+.pbtn{display:inline-flex;align-items:center;gap:7px;background:rgba(46,204,113,.1);
+  border:1px solid rgba(46,204,113,.3);color:#6de0a0;padding:8px 15px;border-radius:9px;
+  text-decoration:none;font-size:12px;font-weight:600;transition:background .2s;cursor:pointer}
+.pbtn:hover{background:rgba(46,204,113,.18)}
+
+/* ── ALERTS ── */
+.al{display:flex;align-items:flex-start;gap:9px;padding:11px 14px;border-radius:10px;margin-bottom:12px;font-size:12.5px;line-height:1.5}
+.al-warn{background:rgba(243,156,18,.1);border:1px solid rgba(243,156,18,.3);color:#f8c867}
+.al-info{background:rgba(52,152,219,.1);border:1px solid rgba(52,152,219,.3);color:#74b9e8}
+.al-ok{background:rgba(46,204,113,.1);border:1px solid rgba(46,204,113,.3);color:#6de0a0}
+.al-danger{background:rgba(231,76,60,.12);border:1px solid rgba(231,76,60,.35);color:#f17e72}
+
+/* ── MAP ── */
+.mapw{width:100%;height:270px;border-radius:12px;border:1px solid var(--border);overflow:hidden}
+.mapw iframe{width:100%;height:100%;border:none;filter:invert(90%) hue-rotate(180deg)}
+.mgps{margin-top:9px;font-size:11px;color:var(--muted)}
+
+/* ── PRICE / CANCEL ── */
+.pr{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--border)}
+.pr:last-child{border-bottom:none}
+.pl{font-size:12px;color:var(--muted)}
+.pv{font-size:13px;font-weight:600}
+.ptot{font-size:17px;font-weight:800;color:#fff}
+.cr{display:flex;justify-content:space-between;font-size:12px;padding:7px 0;border-bottom:1px solid var(--border)}
+.cr:last-child{border-bottom:none}
+.cfree{color:var(--ok);font-weight:700}
+.cfee{color:var(--warn);font-weight:700}
+
+/* ── LISTS ── */
+.ilist{list-style:none;display:flex;flex-direction:column;gap:9px}
+.ilist li{display:flex;align-items:flex-start;gap:9px;font-size:12.5px;line-height:1.55}
+.ilist li .e{font-size:15px;flex-shrink:0;margin-top:1px}
+
+/* ── GRID 2 ── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:560px){.g2{grid-template-columns:1fr}}
+.divider{height:1px;background:var(--border);margin:14px 0}
+.stitle{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:10px}
+</style>
+</head>
+<body>
+
+<!-- ══════════════ LANDING ══════════════ -->
+<div id="landing" class="view active">
+<div id="landing-inner" style="max-width:900px;margin:0 auto;padding:44px 20px;position:relative;z-index:1">
+
+  <div class="trip-header">
+    <div class="badge">Trip.com · Booking.com · Mayıs 2026</div>
+    <h1>🌏 Asya Seyahati</h1>
+    <div class="travelers">
+      <div class="traveler"><div class="av">RO</div>Ridvan Ozcan</div>
+      <div class="traveler"><div class="av">FK</div>Fatih Kocak</div>
+      <div class="traveler"><div class="av">BK</div>Burhan Karakurt</div>
+    </div>
+    <div class="trip-date">17 Mayıs – 29 Mayıs 2026 &nbsp;·&nbsp; 12 Gün &nbsp;·&nbsp; 3 Ülke &nbsp;·&nbsp; 5 Şehir</div>
+  </div>
+
+  <!-- Flight Timeline -->
+  <div class="ftl">
+    <h3>✈️ Uçuş Güzergahı</h3>
+    <div class="route">
+      <div class="rcity"><span class="rflag">🇹🇷</span><span class="rname">İstanbul</span><span class="rdate">17 May 11:10</span></div>
+      <div class="rflight"><div class="rline"></div><div class="rair">Qatar QR238<br>+QR858 (Doha)</div></div>
+      <div class="rcity"><span class="rflag">🇰🇷</span><span class="rname">Seoul</span><span class="rdate">18 May 17:30</span></div>
+      <div class="rflight"><div class="rline"></div><div class="rair">T'Way<br>TW241</div></div>
+      <div class="rcity"><span class="rflag">🇯🇵</span><span class="rname">Tokyo</span><span class="rdate">20 May 11:05</span></div>
+      <div class="rflight"><div class="rline"></div><div class="rair">ZIPAIR<br>ZG053</div></div>
+      <div class="rcity"><span class="rflag">🇸🇬</span><span class="rname">Singapur</span><span class="rdate">27 May 23:00</span></div>
+      <div class="rflight"><div class="rline"></div><div class="rair">Qatar QR947<br>+QR239 (Doha)</div></div>
+      <div class="rcity"><span class="rflag">🇹🇷</span><span class="rname">İstanbul</span><span class="rdate">29 May 15:30</span></div>
+    </div>
+  </div>
+
+  <!-- Booking ref for flights -->
+  <div class="card" style="margin-bottom:28px">
+    <div class="ch"><span class="ci">🎫</span><div><div class="ct">Uçuş Rezervasyon Numaraları</div><div class="cs">Trip.com · Booking No. 1638317731035877</div></div></div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;font-size:12px">
+      <span class="bref"><span class="bl">İST→SEL:</span> BICDT8</span>
+      <span class="bref"><span class="bl">SEL→TYO:</span> J258CM</span>
+      <span class="bref"><span class="bl">TYO→SIN:</span> X0DR3Y</span>
+      <span class="bref"><span class="bl">SIN→İST:</span> BICDT8</span>
+    </div>
+  </div>
+
+  <!-- Country Select -->
+  <div class="cst">Ülke Seçin</div>
+  <div class="ccards">
+    <div class="ccard korea" onclick="show('korea')">
+      <span class="cflag">🇰🇷</span>
+      <div class="cname">Güney Kore</div>
+      <div class="cdates">18 – 20 Mayıs</div>
+      <div class="cchips"><span class="chip">Seoul</span></div>
+      <div class="cnights">2 <span>gece</span></div>
+    </div>
+    <div class="ccard japan" onclick="show('japan')">
+      <span class="cflag">🇯🇵</span>
+      <div class="cname">Japonya</div>
+      <div class="cdates">20 – 27 Mayıs</div>
+      <div class="cchips"><span class="chip">Osaka</span><span class="chip">Kyoto</span><span class="chip">Tokyo</span></div>
+      <div class="cnights">7 <span>gece</span></div>
+    </div>
+    <div class="ccard singapore" onclick="show('singapore')">
+      <span class="cflag">🇸🇬</span>
+      <div class="cname">Singapur</div>
+      <div class="cdates">27 – 28 Mayıs</div>
+      <div class="cchips"><span class="chip">Singapore</span></div>
+      <div class="cnights">1 <span>gece</span></div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ══════════════ KOREA ══════════════ -->
+<div id="korea" class="view">
+<div class="dv">
+  <button class="back" onclick="show('landing')">← Ana Sayfa</button>
+  <div class="dh-flag">🇰🇷</div>
+  <div class="dh-title">Güney Kore — Seoul</div>
+  <div class="dh-sub">18 Mayıs Pazartesi → 20 Mayıs Çarşamba · 2 Gece</div>
+
+  <div class="al al-warn">⚠️ Gece 00:00 sonrası varış durumunda oteli önceden arayın — bilgi verilmezse rezervasyon iptal sayılır.</div>
+
+  <!-- Hotel -->
+  <div class="card">
+    <div class="ch"><span class="ci">🏨</span><div><div class="ct">Otel Bilgileri</div><div class="cs">Booking.com · #5835.954.059</div></div></div>
+    <div class="hname">About Stay Seoul (어바웃스테이 서울역)</div>
+    <div class="hadr">📍 35, Huam-ro 57-gil, Yongsan-gu, Seoul 04324</div>
+    <div class="hgrid">
+      <div class="hdi"><div class="hdl">Check-in</div><div class="hdv">18 Mayıs · 15:00 – 00:00</div></div>
+      <div class="hdi"><div class="hdl">Check-out</div><div class="hdv">20 Mayıs · 11:00'e kadar</div></div>
+      <div class="hdi"><div class="hdl">Oda</div><div class="hdv">Deluxe Aile Odası</div></div>
+      <div class="hdi"><div class="hdl">Yataklar</div><div class="hdv">2 tek + 1 büyük çift</div></div>
+    </div>
+    <div style="margin-bottom:12px">
+      <span class="bref"><span class="bl">Confirmation:</span> 5835.954.059</span>
+      <span class="bref"><span class="bl">PIN:</span> 3181</span>
+    </div>
+    <a href="tel:+821056758832" class="pbtn">📞 +82 10 5675 8832</a>
+  </div>
+
+  <!-- Map -->
+  <div class="card">
+    <div class="ch"><span class="ci">🗺️</span><div class="ct">Konum</div></div>
+    <div class="mapw"><iframe src="https://maps.google.com/maps?q=37.55193,126.97410&hl=tr&z=16&output=embed" loading="lazy"></iframe></div>
+    <div class="mgps">GPS: N 037° 33.116, E 126° 58.446</div>
+  </div>
+
+  <!-- Price + Cancel -->
+  <div class="g2">
+    <div class="card">
+      <div class="ch"><span class="ci">💰</span><div class="ct">Ücret</div></div>
+      <div class="pr"><span class="pl">Oda (2 gece)</span><span class="pv">TL 9.610</span></div>
+      <div class="pr"><span class="pl">%10 Vergi</span><span class="pv">TL 961</span></div>
+      <div class="pr"><span class="pl">Toplam</span><span class="ptot">≈ TL 10.571</span></div>
+      <div style="font-size:11px;color:var(--muted);margin-top:8px">KRW 356.832 · Tesiste ödeme</div>
+    </div>
+    <div class="card">
+      <div class="ch"><span class="ci">🔴</span><div class="ct">İptal Politikası</div></div>
+      <div class="cr"><span>15 Mayıs 23:59'a kadar</span><span class="cfree">ÜCRETSİZ</span></div>
+      <div class="cr"><span>16 Mayıs'tan itibaren</span><span class="cfee">≈ TL 5.285</span></div>
+      <div style="font-size:11px;color:var(--muted);margin-top:8px">Ön ödeme gerekmez</div>
+    </div>
+  </div>
+
+  <!-- Room Features -->
+  <div class="card">
+    <div class="ch"><span class="ci">🛏️</span><div class="ct">Oda Özellikleri</div></div>
+    <div style="font-size:12px;color:var(--muted);line-height:1.9">
+      Özel banyo · Ücretsiz tuvalet malzemeleri · Klima · Kasa · Tuvalet · Havlu · Terlik ·
+      Buzdolabı · Telefon · Çay/Kahve · Isıtma · Düz ekran TV · Saç kurutma · Elektrikli su
+      ısıtıcı · Kablo kanalları · Uyandırma servisi · Elbise askısı
+    </div>
+  </div>
+
+  <!-- Shopping -->
+  <div class="card">
+    <div class="ch"><span class="ci">🛍️</span><div class="ct">Alışveriş Rehberi</div></div>
+    <ul class="ilist">
+      <li><span class="e">📱</span><div><strong>Yongsan Elektronik Çarşısı</strong> — Galaxy, genel elektronik. Tax-free pasaportla.</div></li>
+      <li><span class="e">⌚</span><div><strong>Myeongdong — Samsung Flagship</strong> — Akıllı saat ve kulaklık. Tax-free ₩30.000+</div></li>
+      <li><span class="e">💄</span><div><strong>Olive Young</strong> — K-beauty, bakım ürünleri</div></li>
+      <li><span class="e">👟</span><div><strong>Musinsa Store</strong> — Kore streetwear markaları</div></li>
+    </ul>
+    <div class="divider"></div>
+    <div class="al al-info">💡 Tax-free için pasaport şart. Refund havaalanında veya anında mağazada.</div>
+  </div>
+
+  <!-- Attractions -->
+  <div class="card">
+    <div class="ch"><span class="ci">🗿</span><div class="ct">Gezilecek Yerler</div></div>
+    <ul class="ilist">
+      <li><span class="e">🏯</span><div><strong>Gyeongbokgung Sarayı</strong> — Joseon hanedanının ana sarayı</div></li>
+      <li><span class="e">🗼</span><div><strong>N Seoul Tower</strong> — Panoramik şehir manzarası, aşk kilitleri</div></li>
+      <li><span class="e">🏘️</span><div><strong>Bukchon Hanok Village</strong> — Geleneksel Kore evleri</div></li>
+      <li><span class="e">🌆</span><div><strong>Myeongdong</strong> — Alışveriş caddesi + sokak yemekleri</div></li>
+    </ul>
+  </div>
+
+  <!-- Food -->
+  <div class="card">
+    <div class="ch"><span class="ci">🍜</span><div class="ct">Helal Yemek</div></div>
+    <ul class="ilist">
+      <li><span class="e">🕌</span><div><strong>Itaewon Bölgesi</strong> — Seoul'un helal restoran merkezi</div></li>
+      <li><span class="e">📱</span><div>Helal Gourmet Japan uygulaması ile yakın helal mekanları bulun</div></li>
+    </ul>
+  </div>
+
+  <!-- Practical -->
+  <div class="card">
+    <div class="ch"><span class="ci">📲</span><div class="ct">Pratik Bilgiler</div></div>
+    <ul class="ilist">
+      <li><span class="e">🗺️</span><div><strong>Naver Map + Papago</strong> zorunlu — Google Maps Kore'de yetersiz kalır</div></li>
+      <li><span class="e">💬</span><div><strong>KakaoTalk</strong> — Yerel iletişim uygulaması</div></li>
+      <li><span class="e">💳</span><div>Kredi kartı geniş kabul görür (Visa, Mastercard, Amex)</div></li>
+      <li><span class="e">💱</span><div>Para birimi: KRW · 1 TL ≈ 34 KRW</div></li>
+    </ul>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════ JAPAN ══════════════ -->
+<div id="japan" class="view">
+<div class="dv">
+  <button class="back" onclick="show('landing')">← Ana Sayfa</button>
+  <div class="dh-flag">🇯🇵</div>
+  <div class="dh-title">Japonya</div>
+  <div class="dh-sub">20 Mayıs → 27 Mayıs 2026 · 7 Gece · Osaka › Kyoto › Tokyo</div>
+
+  <div class="ctabs">
+    <button class="ctab active" onclick="city('osaka',this)">🏙️ Osaka</button>
+    <button class="ctab" onclick="city('kyoto',this)">⛩️ Kyoto</button>
+    <button class="ctab" onclick="city('tokyo',this)">🗼 Tokyo</button>
+  </div>
+
+  <!-- ── OSAKA ── -->
+  <div id="osaka" class="cpanel active">
+    <div class="al al-info">ℹ️ T'Way Air TW241 ile Seoul'dan kalkış 08:35, Tokyo Narita'ya varış 11:05. Osaka'ya Narita'dan shinkansen veya uçuşla geçiş yapılacak.</div>
+
+    <div class="card">
+      <div class="ch"><span class="ci">🏨</span><div><div class="ct">Otel Bilgileri</div><div class="cs">Booking.com · #5953.296.114</div></div></div>
+      <div class="hname">APA Hotel &amp; Resort Osaka Umeda Eki Tower</div>
+      <div class="hadr">📍 Kita-ku Sonezaki 2-8-32, Osaka 530-0057</div>
+      <div class="hgrid">
+        <div class="hdi"><div class="hdl">Check-in</div><div class="hdv">20 Mayıs · 15:00 – 00:00</div></div>
+        <div class="hdi"><div class="hdl">Check-out</div><div class="hdv">22 Mayıs · 10:00'a kadar</div></div>
+        <div class="hdi"><div class="hdl">Oda</div><div class="hdv">Triple Room – Sky Floor</div></div>
+        <div class="hdi"><div class="hdl">Yataklar</div><div class="hdv">3 tek yatak (90–130 cm)</div></div>
+      </div>
+      <div style="margin-bottom:12px">
+        <span class="bref"><span class="bl">Confirmation:</span> 5953.296.114</span>
+        <span class="bref"><span class="bl">PIN:</span> 3310</span>
+      </div>
+      <a href="tel:+815700070411" class="pbtn">📞 +81 570 070 411</a>
+    </div>
+
+    <div class="al al-warn">⚠️ Rooftop havuzu 05 Temmuz 2026'ya kadar kapalı (ルーフトッププール).</div>
+
+    <div class="card">
+      <div class="ch"><span class="ci">🗺️</span><div class="ct">Konum</div></div>
+      <div class="mapw"><iframe src="https://maps.google.com/maps?q=34.70003,135.50150&hl=tr&z=16&output=embed" loading="lazy"></iframe></div>
+      <div class="mgps">GPS: N 034° 42.002, E 135° 30.090</div>
+    </div>
+
+    <div class="g2">
+      <div class="card">
+        <div class="ch"><span class="ci">💰</span><div class="ct">Ücret</div></div>
+        <div class="pr"><span class="pl">Oda (2 gece)</span><span class="pv">TL 10.405</span></div>
+        <div class="pr"><span class="pl">%10 KDV</span><span class="pv">TL 1.040</span></div>
+        <div class="pr"><span class="pl">Toplam</span><span class="ptot">≈ TL 11.445</span></div>
+        <div style="font-size:11px;color:var(--muted);margin-top:8px">¥41.040 · Tesiste ödeme</div>
+      </div>
+      <div class="card">
+        <div class="ch"><span class="ci">🔴</span><div class="ct">İptal Politikası</div></div>
+        <div class="cr"><span>18 Mayıs 23:59'a kadar</span><span class="cfree">ÜCRETSİZ</span></div>
+        <div class="cr"><span>19 Mayıs'tan itibaren</span><span class="cfee">¥19.040</span></div>
+        <div class="cr"><span>21 Mayıs'tan itibaren</span><span class="cfee">¥41.040</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="ch"><span class="ci">🛍️</span><div class="ct">Alışveriş — Osaka</div></div>
+      <ul class="ilist">
+        <li><span class="e">⌚</span><div><strong>EDION Namba</strong> — Seiko SBSC009 için en iyi fiyat (~¥41.000)</div></li>
+        <li><span class="e">🎮</span><div><strong>Den Den Town</strong> — Elektronik, retro gaming, anime figürleri</div></li>
+        <li><span class="e">🏬</span><div><strong>Rinku Premium Outlets</strong> — Havaalanı yakınında, 210 mağaza</div></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="ch"><span class="ci">🗿</span><div class="ct">Gezilecek Yerler</div></div>
+      <ul class="ilist">
+        <li><span class="e">🏯</span><div><strong>Osaka Kalesi</strong></div></li>
+        <li><span class="e">🌃</span><div><strong>Dotonbori</strong> — Neon ışıklar, sokak yemekleri, ikonik kanallar</div></li>
+        <li><span class="e">🐙</span><div><strong>Kuromon Ichiba Pazarı</strong> — Taze deniz ürünleri</div></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="ch"><span class="ci">🍜</span><div class="ct">Helal Yemek</div></div>
+      <ul class="ilist">
+        <li><span class="e">🍜</span><div><strong>Naritaya Osaka</strong> — Helal ramen zinciri</div></li>
+        <li><span class="e">🥩</span><div><strong>Matsusaka Yakiniku M Halal</strong> — A5 Wagyu biftek</div></li>
+        <li><span class="e">🥩</span><div><strong>Kobe Plaisir Halal</strong> (Kobe yakını) — Otantik Kobe bifteği</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ── KYOTO ── -->
+  <div id="kyoto" class="cpanel">
+    <div class="al al-danger">🚨 CHECK-IN SAAT 22:00'DE KAPANIYOR (22:30'da tamamen)! Mutlaka önceden haber verin.</div>
+    <div class="al al-danger">💵 SADECE NAKİT — Kredi kartı KABUL EDİLMEZ. ¥17.425 JPY hazır bulundurun.</div>
+
+    <div class="card">
+      <div class="ch"><span class="ci">🏨</span><div><div class="ct">Otel Bilgileri</div><div class="cs">Booking.com · #6847.180.101</div></div></div>
+      <div class="hname">Guest Inn Chita (ゲストインちた)</div>
+      <div class="hadr">📍 Shimogyo-ku Takatsuki-cho 343, Kyoto 600-8174</div>
+      <div class="hgrid">
+        <div class="hdi"><div class="hdl">Check-in</div><div class="hdv">22 Mayıs · 16:00 – 22:00 ⚠️</div></div>
+        <div class="hdi"><div class="hdl">Check-out</div><div class="hdv">23 Mayıs · 10:00'a kadar</div></div>
+        <div class="hdi"><div class="hdl">Oda</div><div class="hdv">Üç Kişilik Oda</div></div>
+        <div class="hdi"><div class="hdl">Ödeme</div><div class="hdv">NAKİT SADECE 💵</div></div>
+      </div>
+      <div style="margin-bottom:12px">
+        <span class="bref"><span class="bl">Confirmation:</span> 6847.180.101</span>
+        <span class="bref"><span class="bl">PIN:</span> 8647</span>
+      </div>
+      <a href="tel:+81753611802" class="pbtn">📞 +81 75 361 1802</a>
+    </div>
+
+    <div class="card">
+      <div class="ch"><span class="ci">🗺️</span><div class="ct">Konum</div></div>
+      <div class="mapw"><iframe src="https://maps.google.com/maps?q=34.99257,135.76030&hl=tr&z=16&output=embed" loading="lazy"></iframe></div>
+      <div class="mgps">GPS: N 034° 59.554, E 135° 45.618</div>
+    </div>
+
+    <div class="g2">
+      <div class="card">
+        <div class="ch"><span class="ci">💰</span><div class="ct">Ücret</div></div>
+        <div class="pr"><span class="pl">Oda (1 gece)</span><span class="pv">TL 4.418</span></div>
+        <div class="pr"><span class="pl">%10 KDV</span><span class="pv">TL 442</span></div>
+        <div class="pr"><span class="pl">Toplam</span><span class="ptot">TL 4.860</span></div>
+        <div style="font-size:11px;color:var(--muted);margin-top:8px">¥17.425 NAKİT — Sadece JPY kabul edilir</div>
+      </div>
+      <div class="card">
+        <div class="ch"><span class="ci">🔴</span><div class="ct">İptal Politikası</div></div>
+        <div class="cr"><span>14 Mayıs 23:59'a kadar</span><span class="cfree">ÜCRETSİZ</span></div>
+        <div class="cr"><span>15 Mayıs'tan itibaren</span><span class="cfee">¥17.425 (tam tutar)</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="ch"><span class="ci">🗿</span><div class="ct">Gezilecek Yerler</div></div>
+      <ul class="ilist">
+        <li><span class="e">⛩️</span><div><strong>Fushimi Inari Tapınağı</strong> — 10.000 turuncu torii kapısı</div></li>
+        <li><span class="e">🎋</span><div><strong>Arashiyama Bambu Ormanı</strong> — Sabah erken gitmeniz önerilir</div></li>
+        <li><span class="e">🛕</span><div><strong>Kiyomizu-dera Tapınağı</strong> — UNESCO Miras Alanı</div></li>
+        <li><span class="e">🎎</span><div><strong>Gion Bölgesi</strong> — Geisha kültürü, akşam yürüyüşü</div></li>
+        <li><span class="e">🏯</span><div><strong>Nijo Kalesi</strong></div></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="ch"><span class="ci">ℹ️</span><div class="ct">Otel Politikası</div></div>
+      <ul class="ilist">
+        <li><span class="e">🚫</span><div>Bekarlığa veda / stag partileri yasak</div></li>
+        <li><span class="e">📶</span><div>Otelde Wi-Fi mevcut</div></li>
+        <li><span class="e">💵</span><div>Ödeme yalnızca JPY nakit — ATM'den çekmeyi unutmayın</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ── TOKYO ── -->
+  <div id="tokyo" class="cpanel">
+    <div class="al al-warn">⚠️ Dövme (tattoo) olan misafirler ortak banyo ve tesis alanlarını kullanamayabilir.</div>
+
+    <div class="card">
+      <div class="ch"><span class="ci">🏨</span><div><div class="ct">Otel Bilgileri</div><div class="cs">Booking.com · #6001.821.134</div></div></div>
+      <div class="hname">APA Hotel Roppongi SIX (アパホテル六本木SIX)</div>
+      <div class="hadr">📍 Minato-ku, Roppongi 2-3-11, Tokyo 106-0032</div>
+      <div class="hgrid">
+        <div class="hdi"><div class="hdl">Check-in</div><div class="hdv">23 Mayıs · 15:00 – 00:00</div></div>
+        <div class="hdi"><div class="hdl">Check-out</div><div class="hdv">27 Mayıs · 10:00'a kadar</div></div>
+        <div class="hdi"><div class="hdl">Oda</div><div class="hdv">3 Ayrı Tek Kişilik Oda</div></div>
+        <div class="hdi"><div class="hdl">Kahvaltı</div><div class="hdv">Dahil ✓</div></div>
+      </div>
+      <div style="font-size:12px;line-height:2;margin-bottom:12px;padding:10px;background:var(--surface2);border-radius:8px">
+        🛏️ <strong>Ridvan Ozcan</strong> — Tek Kişilik Oda · ¥62.400<br>
+        🛏️ <strong>Fatih Kocak</strong> — Tek Kişilik Oda · ¥62.400<br>
+        🛏️ <strong>Burhan Karakurt</strong> — Tek Kişilik Oda · ¥62.400
+      </div>
+      <div style="margin-bottom:12px">
+        <span class="bref"><span class="bl">Confirmation:</span> 6001.821.134</span>
+        <span class="bref"><span class="bl">PIN:</span> 8667</span>
+      </div>
+      <a href="tel:+81355453011" class="pbtn">📞 +81 3 5545 3011</a>
+    </div>
+
+    <div class="card">
+      <div class="ch"><span class="ci">🗺️</span><div class="ct">Konum — Roppongi</div></div>
+      <div class="mapw"><iframe src="https://maps.google.com/maps?q=35.66632,139.73733&hl=tr&z=16&output=embed" loading="lazy"></iframe></div>
+      <div class="mgps">GPS: N 035° 39.979, E 139° 44.240</div>
+    </div>
+
+    <div class="g2">
+      <div class="card">
+        <div class="ch"><span class="ci">💰</span><div class="ct">Ücret</div></div>
+        <div class="pr"><span class="pl">3 oda × 4 gece</span><span class="pv">TL 47.461</span></div>
+        <div class="pr"><span class="pl">%10 KDV</span><span class="pv">TL 4.746</span></div>
+        <div class="pr"><span class="pl">Toplam</span><span class="ptot">≈ TL 52.207</span></div>
+        <div style="font-size:11px;color:var(--muted);margin-top:8px">¥187.200 · Tesiste ödeme · Kahvaltı dahil</div>
+      </div>
+      <div class="card">
+        <div class="ch"><span class="ci">🔴</span><div class="ct">İptal Politikası</div></div>
+        <div class="cr"><span>21 Mayıs 23:59'a kadar</span><span class="cfree">ÜCRETSİZ</span></div>
+        <div class="cr"><span>22 Mayıs'tan itibaren</span><span class="cfee">¥25.120/kişi</span></div>
+        <div class="cr"><span>24 Mayıs'tan itibaren</span><span class="cfee">¥62.400/kişi</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="ch"><span class="ci">🛍️</span><div class="ct">Alışveriş — Tokyo</div></div>
+      <ul class="ilist">
+        <li><span class="e">🎮</span><div><strong>Akihabara</strong> — Ses ekipmanları, M5Stack, mekanik klavyeler (HHKB ~¥38.500), retro oyunlar</div></li>
+        <li><span class="e">📷</span><div><strong>Shinjuku — Map Camera</strong> — İkinci el + yeni kameralar için en iyi fiyat</div></li>
+        <li><span class="e">🚁</span><div><strong>Yurakucho — Bic Camera</strong> — DJI Neo (~¥31.000), DJI Osmo Pocket 3 (~¥90.000)</div></li>
+        <li><span class="e">🥽</span><div><strong>Meta Quest 3S 128GB</strong> — ~¥48.400 (Yodobashi/Bic Camera)</div></li>
+        <li><span class="e">👟</span><div><strong>Harajuku / Cat Street</strong> — atmos, KICKS LAB, Supreme</div></li>
+        <li><span class="e">🏬</span><div><strong>Gotemba Premium Outlets</strong> — 290 mağaza (90 dk uzaklıkta)</div></li>
+        <li><span class="e">🏪</span><div><strong>Mitsui Outlet Park Makuhari</strong> — 140 mağaza (30 dk)</div></li>
+      </ul>
+      <div class="divider"></div>
+      <div class="al al-ok">💡 Tax-free: ¥5.000+ alışverişte pasaportla. VISA kart ek %5 indirim!</div>
+    </div>
+
+    <div class="card">
+      <div class="ch"><span class="ci">🗿</span><div class="ct">Gezilecek Yerler</div></div>
+      <ul class="ilist">
+        <li><span class="e">🎨</span><div><strong>teamLab Planets</strong> — Dijital sanat müzesi (bilet önceden alın!)</div></li>
+        <li><span class="e">🗼</span><div><strong>Tokyo Skytree</strong> — 634 m, şehrin en yüksek gözlem kulesi</div></li>
+        <li><span class="e">🚶</span><div><strong>Shibuya Scramble Crossing</strong> — Dünyanın en yoğun yaya geçidi</div></li>
+        <li><span class="e">🛕</span><div><strong>Asakusa Senso-ji Tapınağı</strong></div></li>
+        <li><span class="e">🌸</span><div><strong>Shinjuku Gyoen</strong> — Milli park</div></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="ch"><span class="ci">🍜</span><div class="ct">Helal Yemek</div></div>
+      <ul class="ilist">
+        <li><span class="e">🍜</span><div><strong>Naritaya Tokyo</strong> — Helal ramen zinciri, birden fazla şubesi var</div></li>
+        <li><span class="e">📱</span><div><strong>Halal Gourmet Japan uygulaması</strong> ile yakın helal mekanlar</div></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="ch"><span class="ci">🎒</span><div class="ct">Bagaj Uyarısı</div></div>
+      <div class="al al-warn">⚠️ <strong>T'Way Air (Seoul→Tokyo):</strong> Bagaj 15 kg/kişi, el bagajı toplam 10 kg (kabin + kişisel). Qatar uçuşlarında 25 kg/kişi. Elektronikleri el bagajında taşıyın (lityum batarya).</div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ══════════════ SINGAPORE ══════════════ -->
+<div id="singapore" class="view">
+<div class="dv">
+  <button class="back" onclick="show('landing')">← Ana Sayfa</button>
+  <div class="dh-flag">🇸🇬</div>
+  <div class="dh-title">Singapur</div>
+  <div class="dh-sub">27 Mayıs Çarşamba → 28 Mayıs Perşembe · 1 Gece</div>
+
+  <div class="al al-danger">🛂 Check-in'de YALNIZCA Pasaport veya Singapur Fiziksel Kimliği kabul edilir. Ehliyet / diğer belgeler geçmez!</div>
+  <div class="al al-warn">✈️ Tokyo'dan 27 Mayıs 23:00'de varış. Gece geç check-in — oteli önceden bilgilendirin.</div>
+
+  <div class="card">
+    <div class="ch"><span class="ci">🏨</span><div><div class="ct">Otel Bilgileri</div><div class="cs">Booking.com · #5741.666.497</div></div></div>
+    <div class="hname">Summer View Hotel</div>
+    <div class="hadr">📍 173 Bencoolen Street, Bencoolen, Singapore 189642</div>
+    <div class="hgrid">
+      <div class="hdi"><div class="hdl">Check-in</div><div class="hdv">27 Mayıs · 15:00'dan itibaren</div></div>
+      <div class="hdi"><div class="hdl">Check-out</div><div class="hdv">28 Mayıs · 12:00'a kadar</div></div>
+      <div class="hdi"><div class="hdl">Oda</div><div class="hdv">Deluxe Üç Kişilik Oda</div></div>
+      <div class="hdi"><div class="hdl">Yataklar</div><div class="hdv">3 tek veya 1 tek + 1 çift</div></div>
+    </div>
+    <div style="margin-bottom:12px">
+      <span class="bref"><span class="bl">Confirmation:</span> 5741.666.497</span>
+      <span class="bref"><span class="bl">PIN:</span> 0217</span>
+    </div>
+    <a href="tel:+6563381122" class="pbtn">📞 +65 6338 1122</a>
+  </div>
+
+  <div class="card">
+    <div class="ch"><span class="ci">🗺️</span><div class="ct">Konum</div></div>
+    <div class="mapw"><iframe src="https://maps.google.com/maps?q=1.30158,103.85243&hl=tr&z=16&output=embed" loading="lazy"></iframe></div>
+    <div class="mgps">GPS: N 001° 18.095, E 103° 51.146</div>
+  </div>
+
+  <div class="g2">
+    <div class="card">
+      <div class="ch"><span class="ci">💰</span><div class="ct">Ücret</div></div>
+      <div class="pr"><span class="pl">Oda (1 gece)</span><span class="pv">TL 6.483</span></div>
+      <div class="pr"><span class="pl">%9 GST Vergi</span><span class="pv">TL 642</span></div>
+      <div class="pr"><span class="pl">%10 Servis ücreti</span><span class="pv">TL 648</span></div>
+      <div class="pr"><span class="pl">Toplam</span><span class="ptot">≈ TL 7.773</span></div>
+      <div style="font-size:11px;color:var(--muted);margin-top:8px">S$ 221.43 · Tesiste ödeme</div>
+    </div>
+    <div class="card">
+      <div class="ch"><span class="ci">🔴</span><div class="ct">İptal Politikası</div></div>
+      <div class="cr"><span>23 Mayıs 23:59'a kadar</span><span class="cfree">ÜCRETSİZ</span></div>
+      <div class="cr"><span>24 Mayıs'tan itibaren</span><span class="cfee">S$ 202.96</span></div>
+      <div style="font-size:11px;color:var(--muted);margin-top:8px">Tarih değişikliği yapılamaz</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ch"><span class="ci">🛍️</span><div class="ct">Alışveriş — Singapur</div></div>
+    <ul class="ilist">
+      <li><span class="e">🔌</span><div><strong>Sim Lim Square (4–5. Kat)</strong> — Flipper Zero, HackRF, özel RF cihazları</div></li>
+      <li><span class="e">🖥️</span><div><strong>Kuriosity — Sim Lim Tower</strong> — Raspberry Pi 5 (~S$240, Japonya'dan %20 ucuz)</div></li>
+      <li><span class="e">🏬</span><div><strong>Mustafa Centre</strong> — 24 saat açık, her şey mevcut</div></li>
+    </ul>
+    <div class="divider"></div>
+    <div class="al al-info">💡 GST iadesi: S$100+ alışverişte. Changi Airport'ta eTRS kiosk — uçuş check-in'inden önce yapın.</div>
+  </div>
+
+  <div class="card">
+    <div class="ch"><span class="ci">🗿</span><div class="ct">Gezilecek Yerler</div></div>
+    <ul class="ilist">
+      <li><span class="e">🌿</span><div><strong>Gardens by the Bay</strong> — Supertree Grove, akşam ışık gösterisi</div></li>
+      <li><span class="e">🏨</span><div><strong>Marina Bay Sands</strong> — Sonsuz havuz + panoramik manzara</div></li>
+      <li><span class="e">🦁</span><div><strong>Merlion Park</strong> — Singapur'un sembolü</div></li>
+      <li><span class="e">🎢</span><div><strong>Universal Studios Singapore</strong> — Sentosa Adası</div></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="ch"><span class="ci">🍽️</span><div class="ct">Helal Yemek</div></div>
+    <ul class="ilist">
+      <li><span class="e">🍛</span><div><strong>Hajjah Maimunah</strong> — Ünlü geleneksel Malay nasi padang, helal sertifikalı</div></li>
+      <li><span class="e">🕌</span><div>Singapur'da helal yemek bulmak çok kolay — Müslüman nüfus yoğun</div></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="ch"><span class="ci">✈️</span><div class="ct">Dönüş Uçuşu</div></div>
+    <ul class="ilist">
+      <li><span class="e">🕐</span><div><strong>29 Mayıs 01:30</strong> — Singapore Changi T1 kalkış (QR947 → Doha)</div></li>
+      <li><span class="e">🔄</span><div>Doha transit: 5 saat 55 dakika</div></li>
+      <li><span class="e">🛬</span><div><strong>29 Mayıs 15:30</strong> — İstanbul Havalimanı varış (QR239)</div></li>
+      <li><span class="e">🧳</span><div>Bagaj: 25 kg/kişi. Changi'e en az 3 saat önce gidin.</div></li>
+      <li><span class="e">💱</span><div>GST iadesi için eTRS kiosk'u check-in öncesi ziyaret edin</div></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="ch"><span class="ci">📋</span><div class="ct">Önemli Bilgiler</div></div>
+    <ul class="ilist">
+      <li><span class="e">🪪</span><div>Fotoğraflı kimlik ve kredi kartı check-in'de ibraz edilmeli</div></li>
+      <li><span class="e">👶</span><div>18 yaş altı misafirler yalnızca ebeveyn/vasi ile check-in yapabilir</div></li>
+      <li><span class="e">📶</span><div>Odalarda ücretsiz Wi-Fi mevcut</div></li>
+      <li><span class="e">🚗</span><div>Otopark yok</div></li>
+    </ul>
+  </div>
+
+</div>
+</div>
+
+<script>
+function show(id) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function city(id, btn) {
+  document.querySelectorAll('.cpanel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.ctab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
